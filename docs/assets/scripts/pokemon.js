@@ -9,7 +9,7 @@ export class Pokemon {
         this.canvasW = canvasW
         this.size = canvasW/15
         this.img.src = this.imgSrc
-        this.forwardAnimationStartPos = this.startPosX + 20 //this num needs to change if we change frames condition on battleAnimation()
+        this.forwardAnimationStartPos = this.startPosX + 25 //this num needs to change if we change frames condition on battleAnimation()
         this.forwardAnimationframes = 0
         
     }
@@ -65,7 +65,7 @@ export class Pokemon {
             this.ctx.scale(-1,1)
             this.ctx.drawImage(
                 this.img,
-                Math.floor(-startPos + 40 - frames), //hardcoded num needs to change if we change frames condition on battleAnimation()
+                Math.floor(-startPos + 50 - frames*2), //hardcoded num needs to change if we change frames condition on battleAnimation()
                 Math.floor(this.startPosY), 
                 Math.floor(this.size),
                 Math.floor(this.size)
@@ -80,7 +80,7 @@ export class Pokemon {
             )
             this.ctx.drawImage(
                 this.img,
-                Math.floor(startPos - frames),
+                Math.floor(startPos - frames*2),
                 Math.floor(this.startPosY), 
                 Math.floor(this.size),
                 Math.floor(this.size)
@@ -89,11 +89,12 @@ export class Pokemon {
     }
 
     battleAnimation = (frames, isEnemy) => {
-        if(frames > 20){
+        if(frames > 25){
             this.battleAnimationForwards(isEnemy, this.forwardAnimationStartPos, this.forwardAnimationframes)
             this.forwardAnimationframes ++
         } else {
-            this.battleAnimationBackwards(isEnemy, frames)       
+            this.battleAnimationBackwards(isEnemy, frames)
+            this.forwardAnimationframes = 0       
         }
     }
 
@@ -102,12 +103,12 @@ export class Pokemon {
         if(!isEnemy){
             //this.img.src = this.imgSrc
 
-            /* this.ctx.strokeRect( //black rect
+            this.ctx.strokeRect( //black rect
                 Math.floor(this.startPosX - (distanceFromTeamMember + this.size)), 
                 Math.floor(this.startPosY), 
                 Math.floor(this.size), 
                 Math.floor(this.size)
-            ) */
+            )
             /* this.img.onload = () => { */
                 this.ctx.scale(-1,1) //turning sprites around
                 this.ctx.drawImage( 
@@ -124,12 +125,12 @@ export class Pokemon {
         if(isEnemy){
             //this.img.src = this.imgSrc
 
-           /*  this.ctx.strokeRect(
+            this.ctx.strokeRect(
                 Math.floor(this.startPosX + distanceFromTeamMember), 
                 Math.floor(this.startPosY), 
                 Math.floor(this.size), 
                 Math.floor(this.size)
-            ) */
+            )
             
            /*  this.img.onload = () => { */
                 

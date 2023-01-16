@@ -21,6 +21,7 @@ window.addEventListener("load", function() {
     ctx.closePath();
     
     const game = new Game(ctx, canvasW, canvasH);
+    console.log(game)
     fightBtn.addEventListener("click", () => {
         game.start();
     })

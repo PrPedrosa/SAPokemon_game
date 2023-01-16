@@ -1,7 +1,8 @@
 import { Pokemon } from "./pokemon.js";
 import { allPokemon } from "./db.js";
 export class PokeTeam {
-    constructor(ctx, canvasW, canvasH, isEnemy, startPosX, startPosY, generateFullTeam, team = []){
+    constructor(ctx, canvasW, canvasH, isEnemy, startPosX, startPosY, team = []){
+        this.pokeArr = [...allPokemon]
         this.ctx = ctx;
         this.canvasW = canvasW;
         this.canvasH = canvasH;
@@ -16,7 +17,7 @@ export class PokeTeam {
     generateRandomTeam(n){
         if(n > 6 || n <= 0) throw new Error("number of Pokemon must be between 0 and 6");
         
-        const getRandomPoke = () => allPokemon[Math.floor(Math.random()*152)]
+        const getRandomPoke = () => JSON.parse(JSON.stringify(this.pokeArr[Math.floor(Math.random()*152)]))
 
         for(let i = 0; i < n; i++){
             this.team.push(new Pokemon(this.ctx, getRandomPoke(), this.startPosX, this.startPosY, this.canvasW))
@@ -32,7 +33,7 @@ export class PokeTeam {
         this.drawStats()
     }
 
-    drawStats(){//draw stats checks for enemy cuz the draw method on pokemon.js is written differently
+    drawStats(){
         this.team.forEach((poke, i) => {
             if(poke) {
                 if(!this.isEnemy){
